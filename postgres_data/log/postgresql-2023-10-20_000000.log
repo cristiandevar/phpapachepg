@@ -1,0 +1,268 @@
+2023-10-20 00:01:37.118 UTC [199] ERROR:  could not compile PL/Python function "getjson"
+2023-10-20 00:01:37.118 UTC [199] DETAIL:  IndentationError: expected an indented block after 'for' statement on line 14 (<string>, line 15)
+2023-10-20 00:01:37.118 UTC [199] STATEMENT:  create or replace function getJSON(pi_orderid integer)
+	returns text as
+	$$
+	query = """
+	select p.productid, trim(p.productname) as productname, o2.unitprice, o2.quantity
+	from orders o
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid = """
+	query += str(pi_orderid)
+	resultado = plpy.execute(query)
+	cadena = "["
+	for r in resultado:
+	cadena += '{' + '"id": ' + str(r["productid"])
+	cadena += ',"nombre": ' + str(r["productname"])
+	cadena += ',"precio": ' + str(r["unitprice"])
+	cadena += ',"cant": ' + str(r["quantity"])
+	cadena += '},\n'
+	cadena += '\n]'
+	return cadena 
+	$$
+	language plpython3u;
+2023-10-20 00:02:28.775 UTC [199] ERROR:  KeyError: 'productname'
+2023-10-20 00:02:28.775 UTC [199] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "getjson", line 15, in <module>
+	    cadena += ',"nombre": ' + str(r["productname"])
+	PL/Python function "getjson"
+2023-10-20 00:02:28.775 UTC [199] STATEMENT:  select getJSON(11077);
+2023-10-20 00:02:58.263 UTC [24] LOG:  checkpoint starting: time
+2023-10-20 00:02:58.774 UTC [24] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.429 s, sync=0.015 s, total=0.511 s; sync files=5, longest=0.007 s, average=0.003 s; distance=34 kB, estimate=53 kB; lsn=0/64A1928, redo lsn=0/64A18F0
+2023-10-20 00:07:58.876 UTC [24] LOG:  checkpoint starting: time
+2023-10-20 00:07:59.388 UTC [24] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.431 s, sync=0.017 s, total=0.513 s; sync files=5, longest=0.008 s, average=0.004 s; distance=31 kB, estimate=51 kB; lsn=0/64A9608, redo lsn=0/64A95D0
+2023-10-20 00:14:32.982 UTC [199] ERROR:  syntax error at or near "cadena" at character 1
+2023-10-20 00:14:32.982 UTC [199] STATEMENT:  cadena += '\t\t"nombre": ' + str(r["productname"]) +',\n'
+	 cadena += '\t\t""precio": ' + str(r["unitprice"]) +',\n'
+	 cadena += '\t\t""cant": ' + str(r["quantity"]) +'\n'
+	 cadena += '\t},\n\t';
+2023-10-20 00:15:10.586 UTC [199] ERROR:  syntax error at or near "northwind" at character 1
+2023-10-20 00:15:10.586 UTC [199] STATEMENT:  northwind=# create or replace function getJSON(pi_orderid integer)
+	returns text as
+	$$
+	query = """
+	select p.productid,trim( p.productname) as productname, o2.unitprice, o2.quantity
+	from orders o
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid = """
+	query += str(pi_orderid)
+	resultado = plpy.execute(query)
+	cadena = "[\n\t{\n\t"
+	for r in resultado:
+	 cadena += '{' + '"id": ' + str(r["productid"]) +',\n'
+	 cadena += '\t\t"nombre": ' + str(r["productname"]) +',\n'
+	 cadena += '\t\t""precio": ' + str(r["unitprice"]) +',\n'
+	 cadena += '\t\t""cant": ' + str(r["quantity"]) +'\n'
+	 cadena += '\t},\n\t'
+	return cadena
+	$$
+	language plpython3u;
+2023-10-20 00:17:58.530 UTC [24] LOG:  checkpoint starting: time
+2023-10-20 00:17:59.044 UTC [24] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.429 s, sync=0.016 s, total=0.515 s; sync files=5, longest=0.008 s, average=0.004 s; distance=33 kB, estimate=49 kB; lsn=0/64B1C98, redo lsn=0/64B1C60
+2023-10-20 00:18:28.153 UTC [199] ERROR:  syntax error at or near "northwind" at character 1
+2023-10-20 00:18:28.153 UTC [199] STATEMENT:  northwind=# create or replace function getJSON(pi_orderid integer)
+	returns text as
+	$$
+	query = """
+	select p.productid,trim( p.productname) as productname, o2.unitprice, o2.quantity
+	from orders o
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid = """
+	query += str(pi_orderid)
+	resultado = plpy.execute(query)
+	cadena = "[\n\t{"
+	for r in resultado:
+	 cadena += '\n\t{' + '"id": ' + str(r["productid"]) +',\n'
+	 cadena += '\t\t"nombre": ' + str(r["productname"]) +',\n'
+	 cadena += '\t\t""precio": ' + str(r["unitprice"]) +',\n'
+	 cadena += '\t\t""cant": ' + str(r["quantity"]) +'\n'
+	 cadena += '\t},'
+	return cadena
+	$$
+	language plpython3u;
+2023-10-20 00:22:58.153 UTC [24] LOG:  checkpoint starting: time
+2023-10-20 00:22:58.665 UTC [24] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.431 s, sync=0.011 s, total=0.513 s; sync files=5, longest=0.006 s, average=0.003 s; distance=34 kB, estimate=48 kB; lsn=0/64BA4C0, redo lsn=0/64BA488
+2023-10-20 00:23:33.011 UTC [199] ERROR:  syntax error at or near "northwind" at character 1
+2023-10-20 00:23:33.011 UTC [199] STATEMENT:  northwind=# create or replace function getJSON(pi_orderid integer)
+	returns text as
+	$$
+	query = """
+	select p.productid,trim( p.productname) as productname, o2.unitprice, o2.quantity
+	from orders o
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid = """
+	query += str(pi_orderid)
+	resultado = plpy.execute(query)
+	cadena = "[\n\t"
+	for r in resultado:
+	 cadena += '\n\t{' + '"id": ' + str(r["productid"]) +',\n'
+	 cadena += '\t\t"nombre": ' + str(r["productname"]) +',\n'
+	 cadena += '\t\t""precio": ' + str(r["unitprice"]) +',\n'
+	 cadena += '\t\t""cant": ' + str(r["quantity"]) +'\n'
+	 cadena += '\t},'
+	return cadena[:-1] + '\n]'
+	$$
+	language plpython3u;
+2023-10-20 00:27:58.717 UTC [24] LOG:  checkpoint starting: time
+2023-10-20 00:27:59.227 UTC [24] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.429 s, sync=0.017 s, total=0.511 s; sync files=5, longest=0.008 s, average=0.004 s; distance=33 kB, estimate=46 kB; lsn=0/64C2B18, redo lsn=0/64C2AE0
+2023-10-20 00:32:58.331 UTC [24] LOG:  checkpoint starting: time
+2023-10-20 00:32:58.868 UTC [24] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.434 s, sync=0.018 s, total=0.538 s; sync files=5, longest=0.007 s, average=0.004 s; distance=32 kB, estimate=45 kB; lsn=0/64CAED8, redo lsn=0/64CAEA0
+2023-10-20 00:37:58.953 UTC [24] LOG:  checkpoint starting: time
+2023-10-20 00:37:59.475 UTC [24] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.436 s, sync=0.011 s, total=0.522 s; sync files=5, longest=0.006 s, average=0.003 s; distance=31 kB, estimate=43 kB; lsn=0/64D2D30, redo lsn=0/64D2CF8
+2023-10-20 00:49:50.727 UTC [199] ERROR:  syntax error at or near "table" at character 82
+2023-10-20 00:49:50.727 UTC [199] STATEMENT:  create or replace function crea_tabla_jsons(pd_desde date, pd_hasta date)
+	return table(lt_json text) as 
+	$$
+	query = """
+	select getJSON(orderid) as a_json from orders where orderdate between pd_desde and pd_hasta;
+	"""
+	resultado = plpy.execute(query)
+	for r in resultado:
+	 yield(r['a_json']) 
+	$$
+	language plpython2u;
+2023-10-20 00:50:07.778 UTC [199] ERROR:  language "plpython2u" does not exist
+2023-10-20 00:50:07.778 UTC [199] STATEMENT:  create or replace function crea_tabla_jsons(pd_desde date, pd_hasta date)
+	returns table(lt_json text) as 
+	$$
+	query = """
+	select getJSON(orderid) as a_json from orders where orderdate between pd_desde and pd_hasta;
+	"""
+	resultado = plpy.execute(query)
+	for r in resultado:
+	 yield(r['a_json']) 
+	$$
+	language plpython2u;
+2023-10-20 00:51:14.664 UTC [199] ERROR:  error fetching next item from iterator at character 73
+2023-10-20 00:51:14.664 UTC [199] DETAIL:  spiexceptions.UndefinedColumn: column "pd_desde" does not exist
+2023-10-20 00:51:14.664 UTC [199] QUERY:  
+		select getJSON(orderid) as a_json from orders where orderdate between pd_desde and pd_hasta;
+		
+2023-10-20 00:51:14.664 UTC [199] CONTEXT:  Traceback (most recent call last):
+	PL/Python function "crea_tabla_jsons"
+2023-10-20 00:51:14.664 UTC [199] STATEMENT:  select * from crea_tabla_jsons('1997-01-01','1997-02-01');
+2023-10-20 00:52:58.714 UTC [24] LOG:  checkpoint starting: time
+2023-10-20 00:52:59.533 UTC [24] LOG:  checkpoint complete: wrote 8 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.736 s, sync=0.013 s, total=0.820 s; sync files=8, longest=0.005 s, average=0.002 s; distance=46 kB, estimate=46 kB; lsn=0/64DE688, redo lsn=0/64DE650
+2023-10-20 00:54:16.542 UTC [199] ERROR:  syntax error at or near "table" at character 82
+2023-10-20 00:54:16.542 UTC [199] STATEMENT:  create or replace function crea_tabla_jsons(pd_desde date, pd_hasta date)
+	return table(lt_json text) as 
+	$$
+	query = """
+	select getJSON(orderid) as a_json from orders where orderdate between 
+	"""
+	query += pd_desde + ' and ' + pd_hasta + ';'
+	resultado = plpy.execute(query)
+	for r in resultado:
+	 yield(r['a_json']) 
+	$$
+	language plpython3u;
+2023-10-20 00:54:32.584 UTC [199] ERROR:  error fetching next item from iterator at character 65
+2023-10-20 00:54:32.584 UTC [199] DETAIL:  spiexceptions.UndefinedFunction: operator does not exist: date >= integer
+2023-10-20 00:54:32.584 UTC [199] HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+2023-10-20 00:54:32.584 UTC [199] QUERY:  
+		select getJSON(orderid) as a_json from orders where orderdate between 
+		1997-01-01 and 1997-02-01;
+2023-10-20 00:54:32.584 UTC [199] CONTEXT:  Traceback (most recent call last):
+	PL/Python function "crea_tabla_jsons"
+2023-10-20 00:54:32.584 UTC [199] STATEMENT:  select * from crea_tabla_jsons('1997-01-01','1997-02-01');
+2023-10-20 00:57:58.642 UTC [24] LOG:  checkpoint starting: time
+2023-10-20 00:57:59.704 UTC [24] LOG:  checkpoint complete: wrote 10 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.960 s, sync=0.021 s, total=1.063 s; sync files=9, longest=0.007 s, average=0.003 s; distance=53 kB, estimate=53 kB; lsn=0/64EBE40, redo lsn=0/64EBE08
+2023-10-20 01:02:58.730 UTC [24] LOG:  checkpoint starting: time
+2023-10-20 01:02:59.767 UTC [24] LOG:  checkpoint complete: wrote 10 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.941 s, sync=0.021 s, total=1.038 s; sync files=9, longest=0.008 s, average=0.003 s; distance=54 kB, estimate=54 kB; lsn=0/64F97D8, redo lsn=0/64F97A0
+2023-10-20 03:39:54.536 UTC [199] ERROR:  syntax error at or near "as" at character 104
+2023-10-20 03:39:54.536 UTC [199] STATEMENT:  create or replace function devuelve_productos_categoria_descripcion(pt_descripcion text)
+	returns table as
+	$$
+	query = """
+	select * from products p inner join categories c on p.categoryid = c.categoryid where c.description ilike '%
+	"""
+	query += pt_description + "';"
+	return plpy.execute(query)
+	$$
+	language plpython3u;
+2023-10-20 03:41:14.740 UTC [199] ERROR:  syntax error at or near "products" at character 104
+2023-10-20 03:41:14.740 UTC [199] STATEMENT:  create or replace function devuelve_productos_categoria_descripcion(pt_descripcion text)
+	returns table products.* as
+	$$
+	query = """
+	select * from products p inner join categories c on p.categoryid = c.categoryid where c.description ilike '%
+	"""
+	query += pt_description + "';"
+	return plpy.execute(query)
+	$$
+	language plpython3u;
+2023-10-20 03:47:42.199 UTC [199] ERROR:  syntax error at or near ")" at character 110
+2023-10-20 03:47:42.199 UTC [199] STATEMENT:  create or replace function devuelve_productos_categoria_descripcion(pt_descripcion text)
+	returns table(record) as
+	$$
+	query = """
+	select * from products p inner join categories c on p.categoryid = c.categoryid where c.description ilike '%
+	"""
+	query += pt_description + "';"
+	return plpy.execute(query)
+	$$
+	language plpython3u;
+2023-10-20 03:48:01.146 UTC [24] LOG:  checkpoint starting: time
+2023-10-20 03:48:02.204 UTC [24] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.929 s, sync=0.020 s, total=1.058 s; sync files=9, longest=0.006 s, average=0.003 s; distance=46 kB, estimate=53 kB; lsn=0/65051C0, redo lsn=0/6505188
+2023-10-20 03:48:34.896 UTC [199] ERROR:  a column definition list is required for functions returning "record" at character 15
+2023-10-20 03:48:34.896 UTC [199] STATEMENT:  select * from devuelve_productos_categoria_descripcion('');
+2023-10-20 03:50:03.353 UTC [199] ERROR:  function returning record called in context that cannot accept type record
+2023-10-20 03:50:03.353 UTC [199] CONTEXT:  PL/Python function "devuelve_productos_categoria_descripcion"
+2023-10-20 03:50:03.353 UTC [199] STATEMENT:  select devuelve_productos_categoria_descripcion('');
+2023-10-20 03:50:23.262 UTC [199] ERROR:  a column definition list is required for functions returning "record" at character 15
+2023-10-20 03:50:23.262 UTC [199] STATEMENT:  select * from devuelve_productos_categoria_descripcion('');
+2023-10-20 03:50:56.866 UTC [199] ERROR:  syntax error at or near "." at character 112
+2023-10-20 03:50:56.866 UTC [199] STATEMENT:  create or replace function devuelve_productos_categoria_descripcion(pt_descripcion text)
+	returns table(products.*) as
+	$$
+	query = """
+	select * from products p inner join categories c on p.categoryid = c.categoryid where c.description ilike '%
+	"""
+	query += pt_description + "';"
+	return plpy.execute(query)
+	$$
+	language plpython3u;
+2023-10-20 04:07:47.498 UTC [199] ERROR:  cannot change return type of existing function
+2023-10-20 04:07:47.498 UTC [199] DETAIL:  Row type defined by OUT parameters is different.
+2023-10-20 04:07:47.498 UTC [199] HINT:  Use DROP FUNCTION devuelve_productos_categoria_descripcion(text) first.
+2023-10-20 04:07:47.498 UTC [199] STATEMENT:  create or replace function devuelve_productos_categoria_descripcion(pt_descripcion text)
+	returns table(
+	productid integer, 
+	productname text, 
+	supplierid integer,
+	categoryid integer,
+	quantityperunit varchar(20),
+	unitprice numeric(10,2),
+	unitsinstock integer,
+	unitsonorder integer,
+	reorderlevel integer,
+	discontinued bool
+	) as
+	$$
+	query = """
+	select * from products p inner join categories c on p.categoryid = c.categoryid where c.description ilike '%
+	"""
+	query += pt_description + "';"
+	return plpy.execute(query)
+	$$
+	language plpython3u;
+2023-10-20 04:08:16.034 UTC [199] ERROR:  NameError: name 'pt_description' is not defined
+2023-10-20 04:08:16.034 UTC [199] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "devuelve_productos_categoria_descripcion", line 5, in <module>
+	    query += pt_description + "';"
+	PL/Python function "devuelve_productos_categoria_descripcion"
+2023-10-20 04:08:16.034 UTC [199] STATEMENT:  select * from devuelve_productos_categoria_descripcion('');
+2023-10-20 04:13:01.561 UTC [24] LOG:  checkpoint starting: time
+2023-10-20 04:13:02.817 UTC [24] LOG:  checkpoint complete: wrote 12 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.145 s, sync=0.024 s, total=1.257 s; sync files=9, longest=0.007 s, average=0.003 s; distance=72 kB, estimate=72 kB; lsn=0/6517568, redo lsn=0/6517530

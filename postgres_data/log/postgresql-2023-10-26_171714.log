@@ -1,0 +1,358 @@
+2023-10-26 17:17:14.944 UTC [1] LOG:  starting PostgreSQL 16.0 on x86_64-pc-linux-musl, compiled by gcc (Alpine 12.2.1_git20220924-r10) 12.2.1 20220924, 64-bit
+2023-10-26 17:17:14.945 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2023-10-26 17:17:14.946 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2023-10-26 17:17:14.986 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2023-10-26 17:17:15.318 UTC [32] LOG:  database system was interrupted; last known up at 2023-10-26 12:30:32 UTC
+2023-10-26 17:17:24.131 UTC [36] FATAL:  the database system is starting up
+2023-10-26 17:17:25.356 UTC [32] LOG:  syncing data directory (pre-fsync), elapsed time: 10.00 s, current path: ./base/16384/2610_fsm
+2023-10-26 17:17:35.356 UTC [32] LOG:  syncing data directory (pre-fsync), elapsed time: 20.00 s, current path: ./base/16385/2678
+2023-10-26 17:17:45.358 UTC [32] LOG:  syncing data directory (pre-fsync), elapsed time: 30.00 s, current path: ./base/16598/4150
+2023-10-26 17:17:55.391 UTC [32] LOG:  syncing data directory (pre-fsync), elapsed time: 40.03 s, current path: ./base/41188/2692
+2023-10-26 17:18:05.367 UTC [32] LOG:  syncing data directory (pre-fsync), elapsed time: 50.01 s, current path: ./base/5/6228
+2023-10-26 17:18:18.580 UTC [32] LOG:  syncing data directory (fsync), elapsed time: 10.00 s, current path: ./base/16385/2652
+2023-10-26 17:18:28.586 UTC [32] LOG:  syncing data directory (fsync), elapsed time: 20.00 s, current path: ./base/4/4165
+2023-10-26 17:18:38.584 UTC [32] LOG:  syncing data directory (fsync), elapsed time: 30.00 s, current path: ./pg_xact/0000
+2023-10-26 17:18:38.733 UTC [32] LOG:  database system was not properly shut down; automatic recovery in progress
+2023-10-26 17:18:38.996 UTC [32] LOG:  redo starts at 0/7301028
+2023-10-26 17:18:39.064 UTC [32] LOG:  invalid record length at 0/730C068: expected at least 24, got 0
+2023-10-26 17:18:39.064 UTC [32] LOG:  redo done at 0/730C030 system usage: CPU: user: 0.00 s, system: 0.01 s, elapsed: 0.07 s
+2023-10-26 17:18:39.344 UTC [30] LOG:  checkpoint starting: end-of-recovery immediate wait
+2023-10-26 17:18:39.755 UTC [30] LOG:  checkpoint complete: wrote 11 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.160 s, sync=0.058 s, total=0.425 s; sync files=8, longest=0.021 s, average=0.008 s; distance=44 kB, estimate=44 kB; lsn=0/730C068, redo lsn=0/730C068
+2023-10-26 17:18:39.823 UTC [1] LOG:  database system is ready to accept connections
+2023-10-26 17:21:15.433 UTC [46] ERROR:  column "country" does not exist at character 8
+2023-10-26 17:21:15.433 UTC [46] STATEMENT:  select country from orders order by orderid
+2023-10-26 17:23:27.003 UTC [46] ERROR:  TypeError: can only concatenate str (not "int") to str
+2023-10-26 17:23:27.003 UTC [46] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "f_impide_orden_china", line 3, in <module>
+	    query += TD["new"]["customerid"]
+	PL/Python function "f_impide_orden_china"
+2023-10-26 17:23:27.003 UTC [46] STATEMENT:  insert into orders(
+		orderdate ,
+		customerid ,
+		netamount ,
+		tax,
+		totalamount
+	)
+	values(
+		'2023-10-26',
+		10023,
+		1,
+		1,
+		1
+	)
+2023-10-26 17:23:39.887 UTC [30] LOG:  checkpoint starting: time
+2023-10-26 17:23:41.392 UTC [30] LOG:  checkpoint complete: wrote 13 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.307 s, sync=0.035 s, total=1.505 s; sync files=10, longest=0.013 s, average=0.004 s; distance=66 kB, estimate=66 kB; lsn=0/731C8B0, redo lsn=0/731C878
+2023-10-26 17:23:45.679 UTC [46] ERROR:  TypeError: list indices must be integers or slices, not str
+2023-10-26 17:23:45.679 UTC [46] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "f_impide_orden_china", line 6, in <module>
+	    plpy.notice(resultado["coutry"])
+	PL/Python function "f_impide_orden_china"
+2023-10-26 17:23:45.679 UTC [46] STATEMENT:  insert into orders(
+		orderdate ,
+		customerid ,
+		netamount ,
+		tax,
+		totalamount
+	)
+	values(
+		'2023-10-26',
+		10023,
+		1,
+		1,
+		1
+	)
+2023-10-26 17:24:43.019 UTC [46] ERROR:  TypeError: list indices must be integers or slices, not str
+2023-10-26 17:24:43.019 UTC [46] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "f_impide_orden_china", line 6, in <module>
+	    plpy.notice(resultado["rows"]["country"])
+	PL/Python function "f_impide_orden_china"
+2023-10-26 17:24:43.019 UTC [46] STATEMENT:  insert into orders(
+		orderdate ,
+		customerid ,
+		netamount ,
+		tax,
+		totalamount
+	)
+	values(
+		'2023-10-26',
+		10023,
+		1,
+		1,
+		1
+	)
+2023-10-26 17:25:02.830 UTC [46] ERROR:  IndexError: list index out of range
+2023-10-26 17:25:02.830 UTC [46] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "f_impide_orden_china", line 6, in <module>
+	    plpy.notice(resultado[2]["country"])
+	PL/Python function "f_impide_orden_china"
+2023-10-26 17:25:02.830 UTC [46] STATEMENT:  insert into orders(
+		orderdate ,
+		customerid ,
+		netamount ,
+		tax,
+		totalamount
+	)
+	values(
+		'2023-10-26',
+		10023,
+		1,
+		1,
+		1
+	)
+2023-10-26 17:26:45.262 UTC [46] ERROR:  could not compile PL/Python function "f_impide_orden_china"
+2023-10-26 17:26:45.262 UTC [46] DETAIL:  SyntaxError: invalid syntax (<string>, line 8)
+2023-10-26 17:26:45.262 UTC [46] STATEMENT:  /*
+	 * 2. Realizar un disparador que impida crear una orden a un cliente de China.
+	 * */
+	create or replace function f_impide_orden_china()
+	returns trigger as 
+	$$
+	query = """select country from customers where customerid="""
+	query += str(TD["new"]["customerid"])
+	query += ";"
+	resultado = plpy.execute(query)
+	plpy.notice(resultado[0])
+	if trim(lower(resultado[0]["country"])) !== 'china'
+	return "SKIP"
+	$$
+	language plpython3u
+2023-10-26 17:28:39.508 UTC [30] LOG:  checkpoint starting: time
+2023-10-26 17:28:41.670 UTC [30] LOG:  checkpoint complete: wrote 19 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.894 s, sync=0.044 s, total=2.163 s; sync files=11, longest=0.012 s, average=0.004 s; distance=114 kB, estimate=114 kB; lsn=0/73391D0, redo lsn=0/7339198
+2023-10-26 17:29:33.720 UTC [46] ERROR:  could not compile PL/Python function "f_impide_orden_china"
+2023-10-26 17:29:33.720 UTC [46] DETAIL:  SyntaxError: invalid syntax (<string>, line 8)
+2023-10-26 17:29:33.720 UTC [46] STATEMENT:  /*
+	 * 2. Realizar un disparador que impida crear una orden a un cliente de China.
+	 * */
+	create or replace function f_impide_orden_china()
+	returns trigger as 
+	$$
+	query = """select country from customers where customerid="""
+	query += str(TD["new"]["customerid"])
+	query += ";"
+	resultado = plpy.execute(query)
+	plpy.notice(resultado[0])
+	if trim(lowercase(resultado[0]["country"])) !== 'china'
+	return "SKIP"
+	$$
+	language plpython3u
+2023-10-26 17:32:22.867 UTC [46] ERROR:  could not compile PL/Python function "f_impide_orden_china"
+2023-10-26 17:32:22.867 UTC [46] DETAIL:  SyntaxError: invalid syntax (<string>, line 8)
+2023-10-26 17:32:22.867 UTC [46] STATEMENT:  /*
+	 * 2. Realizar un disparador que impida crear una orden a un cliente de China.
+	 * */
+	create or replace function f_impide_orden_china()
+	returns trigger as 
+	$$
+	query = """select country from customers where customerid="""
+	query += str(TD["new"]["customerid"])
+	query += ";"
+	resultado = plpy.execute(query)
+	plpy.notice(resultado[0])
+	if trim(resultado[0]["country"]) !== 'china'
+	return "SKIP"
+	$$
+	language plpython3u
+2023-10-26 17:33:39.786 UTC [30] LOG:  checkpoint starting: time
+2023-10-26 17:33:41.064 UTC [30] LOG:  checkpoint complete: wrote 11 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.085 s, sync=0.034 s, total=1.278 s; sync files=9, longest=0.012 s, average=0.004 s; distance=49 kB, estimate=107 kB; lsn=0/7345748, redo lsn=0/7345710
+2023-10-26 17:39:42.174 UTC [120] ERROR:  syntax error at or near "plpy" at character 1
+2023-10-26 17:39:42.174 UTC [120] STATEMENT:  plpy.trim("China ");
+2023-10-26 17:41:10.539 UTC [120] ERROR:  could not compile PL/Python function "f_impide_orden_china"
+2023-10-26 17:41:10.539 UTC [120] DETAIL:  SyntaxError: invalid syntax (<string>, line 8)
+2023-10-26 17:41:10.539 UTC [120] STATEMENT:  create or replace function f_impide_orden_china()
+	returns trigger as 
+	$$
+	query = """select country from customers where customerid="""
+	query += str(TD["new"]["customerid"])
+	query += ";"
+	resultado = plpy.execute(query)
+	plpy.notice(resultado[0])
+	if plpy.trim("China  ") return "SKIP"
+	else return "SKIP"
+	$$
+	language plpython3u;
+2023-10-26 17:41:43.783 UTC [120] ERROR:  could not compile PL/Python function "f_impide_orden_china"
+2023-10-26 17:41:43.783 UTC [120] DETAIL:  SyntaxError: invalid syntax (<string>, line 8)
+2023-10-26 17:41:43.783 UTC [120] STATEMENT:  create or replace function f_impide_orden_china()
+	returns trigger as 
+	$$
+	query = """select country from customers where customerid="""
+	query += str(TD["new"]["customerid"])
+	query += ";"
+	resultado = plpy.execute(query)
+	plpy.notice(resultado)
+	if plpy.trim("China  ") return "SKIP"
+	else return "SKIP"
+	$$
+	language plpython3u;
+2023-10-26 17:43:39.196 UTC [30] LOG:  checkpoint starting: time
+2023-10-26 17:43:40.453 UTC [30] LOG:  checkpoint complete: wrote 10 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.988 s, sync=0.039 s, total=1.257 s; sync files=9, longest=0.012 s, average=0.005 s; distance=50 kB, estimate=102 kB; lsn=0/73522E0, redo lsn=0/73522A8
+2023-10-26 17:43:46.183 UTC [120] ERROR:  could not compile PL/Python function "f_impide_orden_china"
+2023-10-26 17:43:46.183 UTC [120] DETAIL:  SyntaxError: expected ':' (<string>, line 9)
+2023-10-26 17:43:46.183 UTC [120] STATEMENT:  create or replace function f_impide_orden_china()
+	returns trigger as 
+	$$
+	query = """select country from customers where customerid="""
+	query += str(TD["new"]["customerid"])
+	query += ";"
+	resultado = plpy.execute(query)
+	plpy.notice(resultado)
+	if plpy.trim("China  ") == 'China': plpy.notice("Verdadero")
+	else plpy.notice('False')
+	return "SKIP"
+	$$
+	language plpython3u;
+2023-10-26 17:44:18.406 UTC [46] ERROR:  could not compile PL/Python function "f_impide_orden_china"
+2023-10-26 17:44:18.406 UTC [46] DETAIL:  SyntaxError: invalid syntax (<string>, line 8)
+2023-10-26 17:44:18.406 UTC [46] STATEMENT:  /*
+	 * 2. Realizar un disparador que impida crear una orden a un cliente de China.
+	 * */
+	create or replace function f_impide_orden_china()
+	returns trigger as 
+	$$
+	query = """select country from customers where customerid="""
+	query += str(TD["new"]["customerid"])
+	query += ";"
+	resultado = plpy.execute(query)
+	plpy.notice(resultado[0])
+	if plpy.trim(plpy.lower(resultado[0]["country"])) !== 'china'
+	return "SKIP"
+	$$
+	language plpython3u
+2023-10-26 17:44:46.745 UTC [46] ERROR:  could not compile PL/Python function "f_impide_orden_china"
+2023-10-26 17:44:46.745 UTC [46] DETAIL:  SyntaxError: invalid syntax (<string>, line 8)
+2023-10-26 17:44:46.745 UTC [46] STATEMENT:  /*
+	 * 2. Realizar un disparador que impida crear una orden a un cliente de China.
+	 * */
+	create or replace function f_impide_orden_china()
+	returns trigger as 
+	$$
+	query = """select country from customers where customerid="""
+	query += str(TD["new"]["customerid"])
+	query += ";"
+	resultado = plpy.execute(query)
+	plpy.notice(resultado[0])
+	if plpy.trim(plpy.lower(resultado[0]["country"])) !== 'china': plpy.notice("Verdadero")
+	return "SKIP"
+	$$
+	language plpython3u
+2023-10-26 17:44:56.444 UTC [46] ERROR:  could not compile PL/Python function "f_impide_orden_china"
+2023-10-26 17:44:56.444 UTC [46] DETAIL:  SyntaxError: invalid syntax (<string>, line 8)
+2023-10-26 17:44:56.444 UTC [46] STATEMENT:  /*
+	 * 2. Realizar un disparador que impida crear una orden a un cliente de China.
+	 * */
+	create or replace function f_impide_orden_china()
+	returns trigger as 
+	$$
+	query = """select country from customers where customerid="""
+	query += str(TD["new"]["customerid"])
+	query += ";"
+	resultado = plpy.execute(query)
+	plpy.notice(resultado[0])
+	if plpy.trim(plpy.lower(resultado[0]["country"])) !== 'china': 
+		plpy.notice("Verdadero")
+	return "SKIP"
+	$$
+	language plpython3u
+2023-10-26 17:45:16.184 UTC [46] ERROR:  could not compile PL/Python function "f_impide_orden_china"
+2023-10-26 17:45:16.184 UTC [46] DETAIL:  SyntaxError: invalid syntax (<string>, line 8)
+2023-10-26 17:45:16.184 UTC [46] STATEMENT:  /*
+	 * 2. Realizar un disparador que impida crear una orden a un cliente de China.
+	 * */
+	create or replace function f_impide_orden_china()
+	returns trigger as 
+	$$
+	query = """select country from customers where customerid="""
+	query += str(TD["new"]["customerid"])
+	query += ";"
+	resultado = plpy.execute(query)
+	plpy.notice(resultado[0])
+	if plpy.trim(resultado[0]["country"]) !== 'china': 
+		plpy.notice("Verdadero")
+	return "SKIP"
+	$$
+	language plpython3u
+2023-10-26 17:45:18.481 UTC [46] ERROR:  could not compile PL/Python function "f_impide_orden_china"
+2023-10-26 17:45:18.481 UTC [46] DETAIL:  SyntaxError: invalid syntax (<string>, line 8)
+2023-10-26 17:45:18.481 UTC [46] STATEMENT:  /*
+	 * 2. Realizar un disparador que impida crear una orden a un cliente de China.
+	 * */
+	create or replace function f_impide_orden_china()
+	returns trigger as 
+	$$
+	query = """select country from customers where customerid="""
+	query += str(TD["new"]["customerid"])
+	query += ";"
+	resultado = plpy.execute(query)
+	plpy.notice(resultado[0])
+	if plpy.trim(resultado[0]["country"]) !== 'china': 
+		plpy.notice("Verdadero")
+	return "SKIP"
+	$$
+	language plpython3u
+2023-10-26 17:45:43.895 UTC [46] ERROR:  AttributeError: module 'plpy' has no attribute 'trim'
+2023-10-26 17:45:43.895 UTC [46] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "f_impide_orden_china", line 7, in <module>
+	    if plpy.trim(plpy.lower(resultado[0]["country"])) != 'china': 
+	PL/Python function "f_impide_orden_china"
+2023-10-26 17:45:43.895 UTC [46] STATEMENT:  insert into orders(
+		orderdate ,
+		customerid ,
+		netamount ,
+		tax,
+		totalamount
+	)
+	values(
+		'2023-10-26',
+		10023,
+		1,
+		1,
+		1
+	)
+2023-10-26 17:46:10.204 UTC [46] ERROR:  NameError: name 'trim' is not defined
+2023-10-26 17:46:10.204 UTC [46] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "f_impide_orden_china", line 7, in <module>
+	    if trim(plpy.lower(resultado[0]["country"])) != 'china': 
+	PL/Python function "f_impide_orden_china"
+2023-10-26 17:46:10.204 UTC [46] STATEMENT:  insert into orders(
+		orderdate ,
+		customerid ,
+		netamount ,
+		tax,
+		totalamount
+	)
+	values(
+		'2023-10-26',
+		10023,
+		1,
+		1,
+		1
+	)
+2023-10-26 17:48:39.514 UTC [30] LOG:  checkpoint starting: time
+2023-10-26 17:48:41.920 UTC [30] LOG:  checkpoint complete: wrote 21 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.121 s, sync=0.060 s, total=2.407 s; sync files=17, longest=0.016 s, average=0.004 s; distance=126 kB, estimate=126 kB; lsn=0/7371E58, redo lsn=0/7371E20
+2023-10-26 17:49:03.441 UTC [46] ERROR:  could not compile PL/Python function "f_impide_orden_china"
+2023-10-26 17:49:03.441 UTC [46] DETAIL:  SyntaxError: invalid syntax (<string>, line 7)
+2023-10-26 17:49:03.441 UTC [46] STATEMENT:  /*
+	 * 2. Realizar un disparador que impida crear una orden a un cliente de China.
+	 * */
+	create or replace function f_impide_orden_china()
+	returns trigger as 
+	$$
+	query = """select country from customers where customerid="""
+	query += str(TD["new"]["customerid"])
+	query += ";"
+	resultado = plpy.execute(query)
+	if resultado[0]["country"] !== 'china': 
+		plpy.notice("Verdadero")
+	return "SKIP"
+	$$
+	language plpython3u
+2023-10-26 17:53:39.991 UTC [30] LOG:  checkpoint starting: time
+2023-10-26 17:53:41.611 UTC [30] LOG:  checkpoint complete: wrote 14 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.414 s, sync=0.041 s, total=1.621 s; sync files=12, longest=0.012 s, average=0.004 s; distance=69 kB, estimate=121 kB; lsn=0/7383360, redo lsn=0/7383328
+2023-10-26 17:57:21.765 UTC [46] ERROR:  column "cusztomerid" does not exist at character 28
+2023-10-26 17:57:21.765 UTC [46] HINT:  Perhaps you meant to reference the column "orders.customerid".
+2023-10-26 17:57:21.765 UTC [46] STATEMENT:  select * from orders where cusztomerid= 1 order by orderid
+2023-10-26 17:57:24.047 UTC [46] ERROR:  column "cusztomerid" does not exist at character 28
+2023-10-26 17:57:24.047 UTC [46] HINT:  Perhaps you meant to reference the column "orders.customerid".
+2023-10-26 17:57:24.047 UTC [46] STATEMENT:  select * from orders where cusztomerid = 1 order by orderid
+2023-10-26 17:58:39.730 UTC [30] LOG:  checkpoint starting: time
+2023-10-26 17:58:41.202 UTC [30] LOG:  checkpoint complete: wrote 13 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.293 s, sync=0.031 s, total=1.473 s; sync files=11, longest=0.009 s, average=0.003 s; distance=71 kB, estimate=116 kB; lsn=0/7395210, redo lsn=0/73951D8

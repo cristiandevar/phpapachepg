@@ -1,0 +1,79 @@
+2023-10-20 16:25:57.366 UTC [1] LOG:  starting PostgreSQL 16.0 on x86_64-pc-linux-musl, compiled by gcc (Alpine 12.2.1_git20220924-r10) 12.2.1 20220924, 64-bit
+2023-10-20 16:25:57.366 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2023-10-20 16:25:57.366 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2023-10-20 16:25:57.407 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2023-10-20 16:25:57.649 UTC [25] LOG:  database system was interrupted; last known up at 2023-10-20 04:13:02 UTC
+2023-10-20 16:26:07.702 UTC [25] LOG:  syncing data directory (pre-fsync), elapsed time: 10.02 s, current path: ./base/16384/2755
+2023-10-20 16:26:17.693 UTC [25] LOG:  syncing data directory (pre-fsync), elapsed time: 20.01 s, current path: ./base/16598/1249_fsm
+2023-10-20 16:26:27.721 UTC [25] LOG:  syncing data directory (pre-fsync), elapsed time: 30.04 s, current path: ./base/4/3764_fsm
+2023-10-20 16:26:45.041 UTC [25] LOG:  syncing data directory (fsync), elapsed time: 10.00 s, current path: ./base/16598/3602_fsm
+2023-10-20 16:26:51.720 UTC [25] LOG:  database system was not properly shut down; automatic recovery in progress
+2023-10-20 16:26:51.979 UTC [25] LOG:  redo starts at 0/6517530
+2023-10-20 16:26:51.983 UTC [25] LOG:  invalid record length at 0/6517618: expected at least 24, got 0
+2023-10-20 16:26:51.983 UTC [25] LOG:  redo done at 0/65175E0 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2023-10-20 16:26:52.275 UTC [23] LOG:  checkpoint starting: end-of-recovery immediate wait
+2023-10-20 16:26:52.577 UTC [23] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.097 s, sync=0.030 s, total=0.317 s; sync files=2, longest=0.016 s, average=0.015 s; distance=0 kB, estimate=0 kB; lsn=0/6517618, redo lsn=0/6517618
+2023-10-20 16:26:52.625 UTC [1] LOG:  database system is ready to accept connections
+2023-10-20 16:32:54.313 UTC [84] ERROR:  cannot change name of input parameter "n"
+2023-10-20 16:32:54.313 UTC [84] HINT:  Use DROP FUNCTION exponente(integer) first.
+2023-10-20 16:32:54.313 UTC [84] STATEMENT:  create or replace function exponente(pi_n integer)
+	returns integer as
+	$$
+	return pi_n**
+	$$
+	language plpython3u;
+2023-10-20 16:33:14.032 UTC [84] ERROR:  could not compile PL/Python function "exponente"
+2023-10-20 16:33:14.032 UTC [84] DETAIL:  SyntaxError: invalid syntax (<string>, line 3)
+2023-10-20 16:33:14.032 UTC [84] STATEMENT:  create or replace function exponente(pi_n integer)
+	returns integer as
+	$$
+	return pi_n**
+	$$
+	language plpython3u;
+2023-10-20 16:36:52.721 UTC [23] LOG:  checkpoint starting: time
+2023-10-20 16:36:53.843 UTC [23] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.902 s, sync=0.039 s, total=1.123 s; sync files=7, longest=0.014 s, average=0.006 s; distance=58 kB, estimate=58 kB; lsn=0/6526240, redo lsn=0/6526208
+2023-10-20 16:37:48.936 UTC [84] ERROR:  spiexceptions.UndefinedTable: relation "products" does not exist at character 17
+2023-10-20 16:37:48.936 UTC [84] QUERY:  
+		select * from products p inner join categories c on p.categoryid = c.categoryid where c.description ilike '%
+		Soft drinks, coffees, teas, beers, and ales%';
+2023-10-20 16:37:48.936 UTC [84] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "devuelve_productos_categoria_descripcion", line 7, in <module>
+	    return plpy.execute(query)
+	PL/Python function "devuelve_productos_categoria_descripcion"
+2023-10-20 16:37:48.936 UTC [84] STATEMENT:  select * from devuelve_productos_categoria_descripcion('Soft drinks, coffees, teas, beers, and ales');
+2023-10-20 16:41:52.903 UTC [23] LOG:  checkpoint starting: time
+2023-10-20 16:41:54.120 UTC [23] LOG:  checkpoint complete: wrote 10 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.996 s, sync=0.034 s, total=1.217 s; sync files=9, longest=0.011 s, average=0.004 s; distance=54 kB, estimate=58 kB; lsn=0/6533CB0, redo lsn=0/6533C78
+2023-10-20 16:42:45.182 UTC [149] ERROR:  could not compile PL/Python function "devuelve_productos_categoria_descripcion"
+2023-10-20 16:42:45.182 UTC [149] DETAIL:  SyntaxError: unterminated triple-quoted string literal (detected at line 8) (<string>, line 3)
+2023-10-20 16:42:45.182 UTC [149] STATEMENT:  create or replace function devuelve_productos_categoria_descripcion(pt_descripcion text)
+	returns table(
+	productid integer, 
+	productname text, 
+	supplierid integer,
+	categoryid integer,
+	quantityperunit varchar(20),
+	unitprice numeric(10,2),
+	unitsinstock integer,
+	unitsonorder integer,
+	reorderlevel integer,
+	discontinued bool
+	) as
+	$$
+	query = """
+	select * from products p inner join categories c on p.categoryid = c.categoryid where c.categoryid = 1;"
+	
+	return plpy.execute(query)
+	$$
+	language plpython3u;
+2023-10-20 16:43:04.805 UTC [149] ERROR:  syntax error at or near "}" at character 101
+2023-10-20 16:43:04.805 UTC [149] STATEMENT:  select * from devuelve_productos_categoria_descripcion('Soft drinks, coffees, teas, beers, and ales'});
+2023-10-20 16:46:52.130 UTC [23] LOG:  checkpoint starting: time
+2023-10-20 16:46:53.565 UTC [23] LOG:  checkpoint complete: wrote 12 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.208 s, sync=0.043 s, total=1.435 s; sync files=9, longest=0.015 s, average=0.005 s; distance=71 kB, estimate=71 kB; lsn=0/6545C58, redo lsn=0/6545C20
+2023-10-20 17:01:05.159 UTC [1] LOG:  received fast shutdown request
+2023-10-20 17:01:05.173 UTC [1] LOG:  aborting any active transactions
+2023-10-20 17:01:05.182 UTC [149] FATAL:  terminating connection due to administrator command
+2023-10-20 17:01:05.195 UTC [1] LOG:  background worker "logical replication launcher" (PID 28) exited with exit code 1
+2023-10-20 17:01:05.315 UTC [23] LOG:  shutting down
+2023-10-20 17:01:05.329 UTC [23] LOG:  checkpoint starting: shutdown immediate
+2023-10-20 17:01:05.530 UTC [23] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.038 s, sync=0.001 s, total=0.215 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=64 kB; lsn=0/6545D08, redo lsn=0/6545D08
+2023-10-20 17:01:05.616 UTC [1] LOG:  database system is shut down

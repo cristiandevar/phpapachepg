@@ -1,0 +1,7 @@
+2023-10-07 14:05:56.661 UTC [1] LOG:  received fast shutdown request
+2023-10-07 14:05:56.666 UTC [1] LOG:  aborting any active transactions
+2023-10-07 14:05:56.669 UTC [1] LOG:  background worker "logical replication launcher" (PID 29) exited with exit code 1
+2023-10-07 14:05:56.669 UTC [23] LOG:  shutting down
+2023-10-07 14:05:56.681 UTC [23] LOG:  checkpoint starting: shutdown immediate
+2023-10-07 14:05:56.759 UTC [23] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.024 s, sync=0.002 s, total=0.090 s; sync files=1, longest=0.002 s, average=0.002 s; distance=0 kB, estimate=0 kB; lsn=0/642B988, redo lsn=0/642B988
+2023-10-07 14:05:56.797 UTC [1] LOG:  database system is shut down

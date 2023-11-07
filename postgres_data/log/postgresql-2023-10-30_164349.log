@@ -1,0 +1,22 @@
+2023-10-30 16:43:49.235 UTC [1] LOG:  starting PostgreSQL 16.0 on x86_64-pc-linux-musl, compiled by gcc (Alpine 12.2.1_git20220924-r10) 12.2.1 20220924, 64-bit
+2023-10-30 16:43:49.236 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2023-10-30 16:43:49.236 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2023-10-30 16:43:49.278 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2023-10-30 16:43:49.576 UTC [25] LOG:  database system was interrupted; last known up at 2023-10-29 20:45:29 UTC
+2023-10-30 16:43:59.634 UTC [25] LOG:  syncing data directory (pre-fsync), elapsed time: 10.01 s, current path: ./base/16384/2616_vm
+2023-10-30 16:44:09.635 UTC [25] LOG:  syncing data directory (pre-fsync), elapsed time: 20.02 s, current path: ./base/16385/3542
+2023-10-30 16:44:17.060 UTC [35] FATAL:  the database system is starting up
+2023-10-30 16:44:19.628 UTC [25] LOG:  syncing data directory (pre-fsync), elapsed time: 30.01 s, current path: ./base/4/3256
+2023-10-30 16:44:26.911 UTC [37] FATAL:  the database system is starting up
+2023-10-30 16:44:29.618 UTC [25] LOG:  syncing data directory (pre-fsync), elapsed time: 40.00 s, current path: ./base/5/2832
+2023-10-30 16:44:31.565 UTC [39] FATAL:  the database system is starting up
+2023-10-30 16:44:43.578 UTC [25] LOG:  syncing data directory (fsync), elapsed time: 10.00 s, current path: ./base/4/2664
+2023-10-30 16:44:50.755 UTC [25] LOG:  database system was not properly shut down; automatic recovery in progress
+2023-10-30 16:44:51.042 UTC [25] LOG:  redo starts at 0/7486790
+2023-10-30 16:44:51.046 UTC [25] LOG:  invalid record length at 0/74867C8: expected at least 24, got 0
+2023-10-30 16:44:51.046 UTC [25] LOG:  redo done at 0/7486790 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2023-10-30 16:44:51.328 UTC [23] LOG:  checkpoint starting: end-of-recovery immediate wait
+2023-10-30 16:44:51.650 UTC [23] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.071 s, sync=0.023 s, total=0.334 s; sync files=2, longest=0.013 s, average=0.012 s; distance=0 kB, estimate=0 kB; lsn=0/74867C8, redo lsn=0/74867C8
+2023-10-30 16:44:51.680 UTC [1] LOG:  database system is ready to accept connections
+2023-10-30 17:19:52.204 UTC [23] LOG:  checkpoint starting: time
+2023-10-30 17:19:53.047 UTC [23] LOG:  checkpoint complete: wrote 7 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.686 s, sync=0.019 s, total=0.848 s; sync files=7, longest=0.006 s, average=0.003 s; distance=41 kB, estimate=41 kB; lsn=0/7490F80, redo lsn=0/7490F48

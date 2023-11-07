@@ -1,0 +1,259 @@
+2023-10-26 03:54:33.274 UTC [1] LOG:  starting PostgreSQL 16.0 on x86_64-pc-linux-musl, compiled by gcc (Alpine 12.2.1_git20220924-r10) 12.2.1 20220924, 64-bit
+2023-10-26 03:54:33.274 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2023-10-26 03:54:33.274 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2023-10-26 03:54:33.295 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2023-10-26 03:54:33.428 UTC [25] LOG:  database system was interrupted; last known up at 2023-10-23 19:14:15 UTC
+2023-10-26 03:54:43.448 UTC [25] LOG:  syncing data directory (pre-fsync), elapsed time: 10.00 s, current path: ./base/16385/3601_vm
+2023-10-26 03:54:53.445 UTC [25] LOG:  syncing data directory (pre-fsync), elapsed time: 20.00 s, current path: ./base/5/2606
+2023-10-26 03:55:03.302 UTC [34] FATAL:  the database system is starting up
+2023-10-26 03:55:05.070 UTC [25] LOG:  database system was not properly shut down; automatic recovery in progress
+2023-10-26 03:55:05.213 UTC [25] LOG:  redo starts at 0/72680F8
+2023-10-26 03:55:05.215 UTC [25] LOG:  invalid record length at 0/72681E0: expected at least 24, got 0
+2023-10-26 03:55:05.215 UTC [25] LOG:  redo done at 0/72681A8 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2023-10-26 03:55:05.379 UTC [23] LOG:  checkpoint starting: end-of-recovery immediate wait
+2023-10-26 03:55:05.517 UTC [23] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.040 s, sync=0.012 s, total=0.145 s; sync files=2, longest=0.007 s, average=0.006 s; distance=0 kB, estimate=0 kB; lsn=0/72681E0, redo lsn=0/72681E0
+2023-10-26 03:55:05.537 UTC [1] LOG:  database system is ready to accept connections
+2023-10-26 04:12:56.601 UTC [50] ERROR:  type "triger" does not exist
+2023-10-26 04:12:56.601 UTC [50] STATEMENT:  /*
+	 * 1. Crear un disparador para impedir que ingresen dos productos (películas) con el mismo nombre
+	 * y actor.
+	 */
+	create or replace function impide_producto_repetido()
+	returns triger as 
+	$$
+	if TD['event'] == 'INSERT':
+		query = 'select prod_id from products;'
+		resultado = plpy.execute(query)
+	else:
+		query = 'select prod_id from products where prod_id <> '
+		query += TD['old']['prod_id']
+		query += ';'
+		resultado = plpy.execute(query)
+	plpy.notice(f'{TD['new']['prod_id']}')
+	if resultado[f'{TD['new']['prod_id']}']:
+			return 'SKIP'
+		else
+			return 'MODIFY'
+	$$
+	language plpython3u
+2023-10-26 04:13:03.720 UTC [50] ERROR:  could not compile PL/Python function "impide_producto_repetido"
+2023-10-26 04:13:03.720 UTC [50] DETAIL:  SyntaxError: f-string: unmatched '[' (<string>, line 11)
+2023-10-26 04:13:03.720 UTC [50] STATEMENT:  /*
+	 * 1. Crear un disparador para impedir que ingresen dos productos (películas) con el mismo nombre
+	 * y actor.
+	 */
+	create or replace function impide_producto_repetido()
+	returns trigger as 
+	$$
+	if TD['event'] == 'INSERT':
+		query = 'select prod_id from products;'
+		resultado = plpy.execute(query)
+	else:
+		query = 'select prod_id from products where prod_id <> '
+		query += TD['old']['prod_id']
+		query += ';'
+		resultado = plpy.execute(query)
+	plpy.notice(f'{TD['new']['prod_id']}')
+	if resultado[f'{TD['new']['prod_id']}']:
+			return 'SKIP'
+		else
+			return 'MODIFY'
+	$$
+	language plpython3u
+2023-10-26 04:13:37.647 UTC [50] ERROR:  could not compile PL/Python function "impide_producto_repetido"
+2023-10-26 04:13:37.647 UTC [50] DETAIL:  SyntaxError: f-string: unmatched '[' (<string>, line 12)
+2023-10-26 04:13:37.647 UTC [50] STATEMENT:  /*
+	 * 1. Crear un disparador para impedir que ingresen dos productos (películas) con el mismo nombre
+	 * y actor.
+	 */
+	create or replace function impide_producto_repetido()
+	returns trigger as 
+	$$
+	if TD['event'] == 'INSERT':
+		query = 'select prod_id from products;'
+		resultado = plpy.execute(query)
+	else:
+		query = 'select prod_id from products where prod_id <> '
+		query += TD['old']['prod_id']
+		query += ';'
+		resultado = plpy.execute(query)
+	plpy.notice(TD['new']['prod_id'])
+	if resultado[f'{TD['new']['prod_id']}']:
+			return 'SKIP'
+		else
+			return 'MODIFY'
+	$$
+	language plpython3u
+2023-10-26 04:15:05.899 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 04:15:06.848 UTC [23] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.849 s, sync=0.022 s, total=0.950 s; sync files=8, longest=0.007 s, average=0.003 s; distance=40 kB, estimate=40 kB; lsn=0/7272350, redo lsn=0/7272318
+2023-10-26 04:15:11.498 UTC [50] ERROR:  could not compile PL/Python function "impide_producto_repetido"
+2023-10-26 04:15:11.498 UTC [50] DETAIL:  IndentationError: unindent does not match any outer indentation level (<string>, line 14)
+2023-10-26 04:15:11.498 UTC [50] STATEMENT:  /*
+	 * 1. Crear un disparador para impedir que ingresen dos productos (películas) con el mismo nombre
+	 * y actor.
+	 */
+	create or replace function impide_producto_repetido()
+	returns trigger as 
+	$$
+	if TD['event'] == 'INSERT':
+		query = 'select prod_id from products;'
+		resultado = plpy.execute(query)
+	else:
+		query = 'select prod_id from products where prod_id <> '
+		query += TD['old']['prod_id']
+		query += ';'
+		resultado = plpy.execute(query)
+	plpy.notice(TD['new']['prod_id'])
+	if resultado['\"' + TD['new']['prod_id'] +'\"']:
+			return 'SKIP'
+		else
+			return 'MODIFY'
+	$$
+	language plpython3u
+2023-10-26 04:15:31.307 UTC [50] ERROR:  could not compile PL/Python function "impide_producto_repetido"
+2023-10-26 04:15:31.307 UTC [50] DETAIL:  SyntaxError: expected ':' (<string>, line 14)
+2023-10-26 04:15:31.307 UTC [50] STATEMENT:  /*
+	 * 1. Crear un disparador para impedir que ingresen dos productos (películas) con el mismo nombre
+	 * y actor.
+	 */
+	create or replace function impide_producto_repetido()
+	returns trigger as 
+	$$
+	if TD['event'] == 'INSERT':
+		query = 'select prod_id from products;'
+		resultado = plpy.execute(query)
+	else:
+		query = 'select prod_id from products where prod_id <> '
+		query += TD['old']['prod_id']
+		query += ';'
+		resultado = plpy.execute(query)
+	plpy.notice(TD['new']['prod_id'])
+	if resultado['\"' + TD['new']['prod_id'] +'\"']:
+		return 'SKIP'
+	else
+		return 'MODIFY'
+	$$
+	language plpython3u
+2023-10-26 04:16:00.307 UTC [50] ERROR:  could not compile PL/Python function "impide_producto_repetido"
+2023-10-26 04:16:00.307 UTC [50] DETAIL:  SyntaxError: expected ':' (<string>, line 14)
+2023-10-26 04:16:00.307 UTC [50] STATEMENT:  /*
+	 * 1. Crear un disparador para impedir que ingresen dos productos (películas) con el mismo nombre
+	 * y actor.
+	 */
+	create or replace function impide_producto_repetido()
+	returns trigger as 
+	$$
+	if TD['event'] == 'INSERT':
+		query = 'select prod_id from products;'
+		resultado = plpy.execute(query)
+	else:
+		query = 'select prod_id from products where prod_id <> '
+		query += TD['old']['prod_id']
+		query += ';'
+		resultado = plpy.execute(query)
+	plpy.notice(TD['new']['prod_id'])
+	if resultado[TD['new']['prod_id']]:
+		return 'SKIP'
+	else
+		return 'MODIFY'
+	$$
+	language plpython3u
+2023-10-26 04:18:27.729 UTC [50] ERROR:  could not compile PL/Python function "impide_producto_repetido"
+2023-10-26 04:18:27.729 UTC [50] DETAIL:  SyntaxError: expected ':' (<string>, line 14)
+2023-10-26 04:18:27.729 UTC [50] STATEMENT:  /*
+	 * 1. Crear un disparador para impedir que ingresen dos productos (películas) con el mismo nombre
+	 * y actor.
+	 */
+	create or replace function impide_producto_repetido()
+	returns trigger as 
+	$$
+	if TD["event"] == "INSERT":
+		query = "select prod_id from products;"
+		resultado = plpy.execute(query)
+	else:
+		query = "select prod_id from products where prod_id <> "
+		query += TD["old"]["prod_id"]
+		query += ';'
+		resultado = plpy.execute(query)
+	plpy.notice(TD["new"]["prod_id"])
+	if resultado[TD["new"]["prod_id"]]:
+		return "SKIP"
+	else
+		return "MODIFY"
+	$$
+	language plpython3u
+2023-10-26 04:20:05.860 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 04:20:07.307 UTC [23] LOG:  checkpoint complete: wrote 14 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.347 s, sync=0.025 s, total=1.447 s; sync files=9, longest=0.008 s, average=0.003 s; distance=74 kB, estimate=74 kB; lsn=0/7284CD8, redo lsn=0/7284CA0
+2023-10-26 04:21:59.405 UTC [50] ERROR:  syntax error at end of input at character 148
+2023-10-26 04:21:59.405 UTC [50] STATEMENT:  create or replace trigger t_impide_producto_repetido before insert or update on products
+	for each row execute procedure f_impide_producto_repetido
+2023-10-26 04:22:02.810 UTC [50] ERROR:  syntax error at end of input at character 148
+2023-10-26 04:22:02.810 UTC [50] STATEMENT:  create or replace trigger t_impide_producto_repetido before insert or update on products
+	for each row execute procedure f_impide_producto_repetido
+2023-10-26 04:22:06.707 UTC [50] ERROR:  syntax error at end of input at character 148
+2023-10-26 04:22:06.707 UTC [50] STATEMENT:  create or replace trigger t_impide_producto_repetido before insert or update on products
+	for each row execute procedure f_impide_producto_repetido
+2023-10-26 04:25:05.332 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 04:25:07.102 UTC [23] LOG:  checkpoint complete: wrote 17 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.655 s, sync=0.031 s, total=1.770 s; sync files=14, longest=0.007 s, average=0.003 s; distance=73 kB, estimate=74 kB; lsn=0/72972A8, redo lsn=0/7297270
+2023-10-26 04:28:28.362 UTC [50] ERROR:  syntax error at or near "order" at character 32
+2023-10-26 04:28:28.362 UTC [50] STATEMENT:  select * from products limit 1 order by prod_id  desc
+2023-10-26 04:28:33.560 UTC [50] ERROR:  syntax error at or near "order" at character 32
+2023-10-26 04:28:33.560 UTC [50] STATEMENT:  select * from products limit 1 order by prod_id desc
+2023-10-26 04:28:38.272 UTC [50] ERROR:  syntax error at or near "limit" at character 2
+2023-10-26 04:28:38.272 UTC [50] STATEMENT:   limit 1
+2023-10-26 04:30:05.213 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 04:30:07.103 UTC [23] LOG:  checkpoint complete: wrote 18 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.763 s, sync=0.030 s, total=1.890 s; sync files=15, longest=0.007 s, average=0.002 s; distance=79 kB, estimate=79 kB; lsn=0/72AB240, redo lsn=0/72AB1D0
+2023-10-26 04:34:19.781 UTC [50] ERROR:  AttributeError: 'PLyResult' object has no attribute 'values'
+2023-10-26 04:34:19.781 UTC [50] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "f_impide_producto_repetido", line 10, in <module>
+	    plpy.notice(resultado.values())
+	PL/Python function "f_impide_producto_repetido"
+2023-10-26 04:34:19.781 UTC [50] STATEMENT:  insert into products(
+		prod_id,
+		category,
+		title,
+		actor,
+		price,
+		special,
+		common_prod_id
+	)
+	values(
+		10001,
+		14,
+		'ALADDIN ZORRO',
+		'MAE CRUISE',
+		123,
+		0,
+		10000
+	)
+2023-10-26 04:35:05.155 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 04:35:07.017 UTC [23] LOG:  checkpoint complete: wrote 18 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.762 s, sync=0.026 s, total=1.863 s; sync files=12, longest=0.008 s, average=0.003 s; distance=74 kB, estimate=79 kB; lsn=0/72BDBF0, redo lsn=0/72BDBB8
+2023-10-26 04:45:05.168 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 04:45:06.403 UTC [23] LOG:  checkpoint complete: wrote 12 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.142 s, sync=0.023 s, total=1.236 s; sync files=10, longest=0.007 s, average=0.003 s; distance=54 kB, estimate=76 kB; lsn=0/72CB548, redo lsn=0/72CB510
+2023-10-26 04:50:05.468 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 04:50:07.437 UTC [23] LOG:  checkpoint complete: wrote 19 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.860 s, sync=0.030 s, total=1.970 s; sync files=15, longest=0.007 s, average=0.002 s; distance=87 kB, estimate=87 kB; lsn=0/72E1428, redo lsn=0/72E13F0
+2023-10-26 04:51:52.460 UTC [50] ERROR:  syntax error at or near "from" at character 29
+2023-10-26 04:51:52.460 UTC [50] STATEMENT:  --UPDATE incorrecto
+	update from products 
+	set 
+		title='ALADDIN ZOOLANDER'
+		actor ='LISA STALLONE'
+	where prod_id = 10002
+2023-10-26 04:52:11.915 UTC [50] ERROR:  syntax error at or near "actor" at character 75
+2023-10-26 04:52:11.915 UTC [50] STATEMENT:  --UPDATE incorrecto
+	update products 
+	set 
+		title='ALADDIN ZOOLANDER'
+		actor ='LISA STALLONE'
+	where prod_id = 10002
+2023-10-26 04:52:20.600 UTC [50] ERROR:  TypeError: can only concatenate str (not "int") to str
+2023-10-26 04:52:20.600 UTC [50] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "f_impide_producto_repetido", line 7, in <module>
+	    query += TD["old"]["prod_id"]
+	PL/Python function "f_impide_producto_repetido"
+2023-10-26 04:52:20.600 UTC [50] STATEMENT:  --UPDATE incorrecto
+	update products 
+	set 
+		title='ALADDIN ZOOLANDER',
+		actor ='LISA STALLONE'
+	where prod_id = 10002

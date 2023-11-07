@@ -1,0 +1,54 @@
+2023-10-26 18:41:57.682 UTC [1] LOG:  starting PostgreSQL 16.0 on x86_64-pc-linux-musl, compiled by gcc (Alpine 12.2.1_git20220924-r10) 12.2.1 20220924, 64-bit
+2023-10-26 18:41:57.684 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2023-10-26 18:41:57.684 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2023-10-26 18:41:57.726 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2023-10-26 18:41:57.994 UTC [25] LOG:  database system was interrupted; last known up at 2023-10-26 18:29:39 UTC
+2023-10-26 18:42:04.741 UTC [26] FATAL:  the database system is starting up
+2023-10-26 18:42:08.034 UTC [25] LOG:  syncing data directory (pre-fsync), elapsed time: 10.01 s, current path: ./base/16384/2619
+2023-10-26 18:42:18.024 UTC [25] LOG:  syncing data directory (pre-fsync), elapsed time: 20.00 s, current path: ./base/16385/pg_filenode.map
+2023-10-26 18:42:21.564 UTC [27] FATAL:  the database system is starting up
+2023-10-26 18:42:28.029 UTC [25] LOG:  syncing data directory (pre-fsync), elapsed time: 30.00 s, current path: ./base/4/4149
+2023-10-26 18:42:38.024 UTC [25] LOG:  syncing data directory (pre-fsync), elapsed time: 40.00 s, current path: ./base/5/3598
+2023-10-26 18:42:51.200 UTC [25] LOG:  syncing data directory (fsync), elapsed time: 10.00 s, current path: ./base/16598/6238
+2023-10-26 18:42:55.429 UTC [28] FATAL:  the database system is starting up
+2023-10-26 18:43:00.336 UTC [25] LOG:  database system was not properly shut down; automatic recovery in progress
+2023-10-26 18:43:00.611 UTC [25] LOG:  redo starts at 0/73B1DD0
+2023-10-26 18:43:00.615 UTC [25] LOG:  invalid record length at 0/73B1EB8: expected at least 24, got 0
+2023-10-26 18:43:00.615 UTC [25] LOG:  redo done at 0/73B1E80 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2023-10-26 18:43:00.916 UTC [23] LOG:  checkpoint starting: end-of-recovery immediate wait
+2023-10-26 18:43:01.178 UTC [23] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.087 s, sync=0.028 s, total=0.274 s; sync files=2, longest=0.016 s, average=0.014 s; distance=0 kB, estimate=0 kB; lsn=0/73B1EB8, redo lsn=0/73B1EB8
+2023-10-26 18:43:01.208 UTC [1] LOG:  database system is ready to accept connections
+2023-10-26 18:43:10.598 UTC [32] FATAL:  password authentication failed for user "postgres"
+2023-10-26 18:43:10.598 UTC [32] DETAIL:  Connection matched file "/var/lib/postgresql/data/pg_hba.conf" line 129: "host all all all scram-sha-256"
+2023-10-26 18:44:35.627 UTC [39] ERROR:  function devuelve_productos_categoria_descripcion() does not exist at character 15
+2023-10-26 18:44:35.627 UTC [39] HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+2023-10-26 18:44:35.627 UTC [39] STATEMENT:  select * from devuelve_productos_categoria_descripcion()
+2023-10-26 18:48:00.194 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 18:48:01.482 UTC [23] LOG:  checkpoint complete: wrote 11 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.076 s, sync=0.072 s, total=1.289 s; sync files=8, longest=0.033 s, average=0.009 s; distance=69 kB, estimate=69 kB; lsn=0/73C3320, redo lsn=0/73C32E8
+2023-10-26 18:53:00.493 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 18:53:01.566 UTC [23] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.879 s, sync=0.033 s, total=1.074 s; sync files=6, longest=0.013 s, average=0.006 s; distance=35 kB, estimate=65 kB; lsn=0/73CC030, redo lsn=0/73CBFE0
+2023-10-26 18:58:00.671 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 18:58:01.548 UTC [23] LOG:  checkpoint complete: wrote 7 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.669 s, sync=0.040 s, total=0.877 s; sync files=7, longest=0.017 s, average=0.006 s; distance=43 kB, estimate=63 kB; lsn=0/73D6CC0, redo lsn=0/73D6C88
+2023-10-26 19:03:00.660 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 19:03:01.276 UTC [23] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.465 s, sync=0.018 s, total=0.617 s; sync files=5, longest=0.011 s, average=0.004 s; distance=28 kB, estimate=59 kB; lsn=0/73DE0B8, redo lsn=0/73DE080
+2023-10-26 19:03:07.892 UTC [94] ERROR:  zero-length delimited identifier at or near """" at character 56
+2023-10-26 19:03:07.892 UTC [94] STATEMENT:  select * from devuelve_productos_categoria_descripcion("") 
+	select * from
+2023-10-26 19:03:11.078 UTC [94] ERROR:  zero-length delimited identifier at or near """" at character 56
+2023-10-26 19:03:11.078 UTC [94] STATEMENT:  select * from devuelve_productos_categoria_descripcion("") 
+2023-10-26 19:08:00.317 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 19:08:00.978 UTC [23] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.475 s, sync=0.026 s, total=0.662 s; sync files=5, longest=0.013 s, average=0.006 s; distance=29 kB, estimate=56 kB; lsn=0/73E55D0, redo lsn=0/73E5598
+2023-10-26 19:09:55.920 UTC [94] ERROR:  spiexceptions.SyntaxError: syntax error at end of input at character 115
+2023-10-26 19:09:55.920 UTC [94] QUERY:  
+			select * 
+			from products p inner join categories c on p.categoryid = c.categoryid 
+			where c.description ilike
+2023-10-26 19:09:55.920 UTC [94] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "devuelve_productos_categoria_descripcion", line 7, in <module>
+	    return plpy.execute(query)
+	PL/Python function "devuelve_productos_categoria_descripcion"
+2023-10-26 19:09:55.920 UTC [94] STATEMENT:  select * from devuelve_productos_categoria_descripcion('') 
+2023-10-26 19:13:01.082 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 19:13:02.257 UTC [23] LOG:  checkpoint complete: wrote 10 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.997 s, sync=0.029 s, total=1.176 s; sync files=8, longest=0.010 s, average=0.004 s; distance=65 kB, estimate=65 kB; lsn=0/73F5A80, redo lsn=0/73F5A48
+2023-10-26 19:18:01.275 UTC [23] LOG:  checkpoint starting: time
+2023-10-26 19:18:01.940 UTC [23] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.475 s, sync=0.027 s, total=0.666 s; sync files=5, longest=0.012 s, average=0.006 s; distance=28 kB, estimate=61 kB; lsn=0/73FCAF0, redo lsn=0/73FCAB8

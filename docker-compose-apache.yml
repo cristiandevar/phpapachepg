@@ -1,0 +1,84 @@
+{
+    "volumes": {
+        "postgres_data": {},
+        "slave_data": {}
+    },
+    "services": {
+        "postgres": {
+            "build": {
+                "context": "./",
+                "dockerfile": "Dockerfile-postgres"
+            },
+            "mem_limit": 4g, 
+            "environment": {
+                "POSTGRES_USER":"postgres",
+                "POSTGRES_PASSWORD": "postgres",
+                "POSTGRES_DB":"postgres"
+            },
+            "volumes": [
+                "./postgres_data:/var/lib/postgresql/data/"
+            ],
+            "ports": [
+                "5432:5432"
+            ],
+            "networks": [
+                bridge_network
+            ]
+        },
+
+        # Para poder iniciar la replicación
+        # genero el slave con el compose,
+        # deshabilito el slave del compose
+        # hago un basebackup en el mismo master con
+        #     pg_basebackup -h postgres -R -D $PGDATA/pgbasebackup -U replicator -v -P
+        # copio por fuera el directorio generado con pgbasebackup sobre el volumen del slave
+        # habilito el slave y vuelvo a levantar el compose completo
+
+        # "slave": {
+        #     "build": {
+        #         "context": "./",
+        #         "dockerfile": "Dockerfile-postgres-slave"
+        #     },
+        #     "mem_limit": 4g, 
+        #     "environment": {
+        #         "POSTGRES_PASSWORD": "postgres"
+        #     },
+        #     "volumes": [
+        #         "./slave_data:/var/lib/postgresql/data/"
+        #     ],
+        #     "ports": [
+        #         "5433:5432"
+        #     ],
+        #     "depends_on": [
+        #         "postgres"
+        #     ],
+        #     "networks": [
+        #         bridge_network
+        #     ]
+        # },
+
+        "apache": {
+            "build": {
+                "context": "./",
+                "dockerfile": "Dockerfile-apache"
+            },
+            "volumes": [
+                "./:/var/www/html/"
+            ],
+            "ports": [
+                "80:80"
+            ],
+            "depends_on": [
+                "postgres"
+            ],
+            "networks": [
+                bridge_network
+            ]
+        }      
+    },
+    "networks": {
+        "bridge_network": {
+           "driver": "bridge"
+        }
+    }    
+}

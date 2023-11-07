@@ -1,0 +1,324 @@
+2023-10-19 22:42:45.611 UTC [1] LOG:  starting PostgreSQL 16.0 on x86_64-pc-linux-musl, compiled by gcc (Alpine 12.2.1_git20220924-r10) 12.2.1 20220924, 64-bit
+2023-10-19 22:42:45.612 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2023-10-19 22:42:45.612 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2023-10-19 22:42:45.630 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2023-10-19 22:42:45.715 UTC [26] LOG:  database system was interrupted; last known up at 2023-10-19 18:56:21 UTC
+2023-10-19 22:42:58.256 UTC [26] LOG:  database system was not properly shut down; automatic recovery in progress
+2023-10-19 22:42:58.359 UTC [26] LOG:  redo starts at 0/6442660
+2023-10-19 22:42:58.361 UTC [26] LOG:  invalid record length at 0/6442748: expected at least 24, got 0
+2023-10-19 22:42:58.361 UTC [26] LOG:  redo done at 0/6442710 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2023-10-19 22:42:58.481 UTC [24] LOG:  checkpoint starting: end-of-recovery immediate wait
+2023-10-19 22:42:58.610 UTC [24] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.042 s, sync=0.013 s, total=0.135 s; sync files=2, longest=0.007 s, average=0.007 s; distance=0 kB, estimate=0 kB; lsn=0/6442748, redo lsn=0/6442748
+2023-10-19 22:42:58.633 UTC [1] LOG:  database system is ready to accept connections
+2023-10-19 22:47:36.462 UTC [44] ERROR:  language "plpython3u" does not exist
+2023-10-19 22:47:36.462 UTC [44] HINT:  Use CREATE EXTENSION to load the language into the database.
+2023-10-19 22:47:36.462 UTC [44] STATEMENT:  create or replace function getJSON(pi_orderid integer)
+	returns text as 
+	$$
+	query = """
+	select p.productid, p.productname, o2.price, o2.quantity
+	from orders o 
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid = pi_orderid;
+	"""
+	resultado = pypl.execute(query)
+	return resultado
+	$$
+	language plpython3u;
+2023-10-19 22:47:58.693 UTC [24] LOG:  checkpoint starting: time
+2023-10-19 22:47:59.636 UTC [24] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.859 s, sync=0.016 s, total=0.943 s; sync files=9, longest=0.005 s, average=0.002 s; distance=40 kB, estimate=40 kB; lsn=0/644CA18, redo lsn=0/644C9E0
+2023-10-19 22:52:58.752 UTC [24] LOG:  checkpoint starting: time
+2023-10-19 22:53:01.147 UTC [24] LOG:  checkpoint complete: wrote 23 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.268 s, sync=0.041 s, total=2.396 s; sync files=19, longest=0.008 s, average=0.003 s; distance=81 kB, estimate=81 kB; lsn=0/6461118, redo lsn=0/64610E0
+2023-10-19 22:56:08.109 UTC [72] ERROR:  syntax error at or near "orderid" at character 30
+2023-10-19 22:56:08.109 UTC [72] STATEMENT:  select * from orders orderby orderid desc;
+2023-10-19 22:57:58.265 UTC [24] LOG:  checkpoint starting: time
+2023-10-19 22:57:59.220 UTC [24] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.841 s, sync=0.023 s, total=0.955 s; sync files=8, longest=0.008 s, average=0.003 s; distance=51 kB, estimate=78 kB; lsn=0/646E0E8, redo lsn=0/646E0B0
+2023-10-19 22:59:04.298 UTC [72] ERROR:  syntax error at or near "desc" at character 37
+2023-10-19 22:59:04.298 UTC [72] STATEMENT:  select * from orderdetails order by desc;
+2023-10-19 22:59:11.657 UTC [72] ERROR:  column "orderiddesc" does not exist at character 37
+2023-10-19 22:59:11.657 UTC [72] STATEMENT:  select * from orderdetails order by orderiddesc;
+2023-10-19 23:02:51.848 UTC [72] ERROR:  NameError: name 'pypl' is not defined
+2023-10-19 23:02:51.848 UTC [72] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "getjson", line 11, in <module>
+	    resultado = pypl.execute(query)
+	PL/Python function "getjson"
+2023-10-19 23:02:51.848 UTC [72] STATEMENT:  select getJSON(11077);
+2023-10-19 23:02:58.313 UTC [24] LOG:  checkpoint starting: time
+2023-10-19 23:02:58.929 UTC [24] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.524 s, sync=0.010 s, total=0.617 s; sync files=3, longest=0.007 s, average=0.004 s; distance=7 kB, estimate=71 kB; lsn=0/6470018, redo lsn=0/646FFC8
+2023-10-19 23:04:07.092 UTC [72] ERROR:  spiexceptions.UndefinedColumn: column o2.price does not exist at character 38
+2023-10-19 23:04:07.092 UTC [72] QUERY:  
+		select p.productid, p.productname, o2.price, o2.quantity
+		from orders o 
+		inner join orderdetails o2
+		on o.orderid = o2.orderid
+		inner join products p
+		on p.productid = o2.productid
+		where o.orderid = pi_orderid;
+		
+2023-10-19 23:04:07.092 UTC [72] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "getjson", line 11, in <module>
+	    resultado = plpy.execute(query)
+	PL/Python function "getjson"
+2023-10-19 23:04:07.092 UTC [72] STATEMENT:  select getJSON(11077);
+2023-10-19 23:05:22.622 UTC [72] ERROR:  spiexceptions.UndefinedColumn: column "pi_orderid" does not exist at character 208
+2023-10-19 23:05:22.622 UTC [72] HINT:  Perhaps you meant to reference the column "o.orderid" or the column "o2.orderid".
+2023-10-19 23:05:22.622 UTC [72] QUERY:  
+		select p.productid, p.productname, o2.unitprice, o2.quantity
+		from orders o 
+		inner join orderdetails o2
+		on o.orderid = o2.orderid
+		inner join products p
+		on p.productid = o2.productid
+		where o.orderid = pi_orderid;
+		
+2023-10-19 23:05:22.622 UTC [72] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "getjson", line 11, in <module>
+	    resultado = plpy.execute(query)
+	PL/Python function "getjson"
+2023-10-19 23:05:22.622 UTC [72] STATEMENT:  select getJSON(11077);
+2023-10-19 23:06:38.310 UTC [72] ERROR:  TypeError: can only concatenate str (not "int") to str
+2023-10-19 23:06:38.310 UTC [72] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "getjson", line 2, in <module>
+	    query = """
+	PL/Python function "getjson"
+2023-10-19 23:06:38.310 UTC [72] STATEMENT:  select getJSON(11077);
+2023-10-19 23:07:58.961 UTC [24] LOG:  checkpoint starting: time
+2023-10-19 23:07:59.482 UTC [24] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.432 s, sync=0.016 s, total=0.522 s; sync files=5, longest=0.008 s, average=0.004 s; distance=31 kB, estimate=67 kB; lsn=0/6477ED8, redo lsn=0/6477EA0
+2023-10-19 23:15:16.018 UTC [72] ERROR:  could not compile PL/Python function "getjson"
+2023-10-19 23:15:16.018 UTC [72] DETAIL:  IndentationError: expected an indented block after 'for' statement on line 12 (<string>, line 14)
+2023-10-19 23:15:16.018 UTC [72] STATEMENT:  create or replace function getJSON(pi_orderid integer)
+	returns text as 
+	$$
+	query = """
+	select p.productid, p.productname, o2.unitprice, o2.quantity
+	from orders o 
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid = """+str(pi_orderid)
+	resultado = plpy.execute(query)
+	for r in resultado:
+	$$
+	language plpython3u;
+2023-10-19 23:15:34.517 UTC [72] ERROR:  could not compile PL/Python function "getjson"
+2023-10-19 23:15:34.517 UTC [72] DETAIL:  IndentationError: expected an indented block after 'for' statement on line 12 (<string>, line 14)
+2023-10-19 23:15:34.517 UTC [72] STATEMENT:  create or replace function getJSON(pi_orderid integer)
+	returns text as 
+	$$
+	query = """
+	select p.productid, p.productname, o2.unitprice, o2.quantity
+	from orders o 
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid = """+str(pi_orderid)
+	resultado = plpy.execute(query)
+	for r in resultado:
+	$$
+	language plpython3u;
+2023-10-19 23:17:58.567 UTC [24] LOG:  checkpoint starting: time
+2023-10-19 23:17:59.087 UTC [24] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.431 s, sync=0.018 s, total=0.521 s; sync files=5, longest=0.009 s, average=0.004 s; distance=32 kB, estimate=64 kB; lsn=0/64800E0, redo lsn=0/64800A8
+2023-10-19 23:43:29.231 UTC [72] ERROR:  could not compile PL/Python function "getjson"
+2023-10-19 23:43:29.231 UTC [72] DETAIL:  SyntaxError: unterminated string literal (detected at line 3) (<string>, line 3)
+2023-10-19 23:43:29.231 UTC [72] STATEMENT:  create or replace function getJSON(pi_orderid integer)
+	returns text as
+	$$
+	query = f'
+	select p.productid, p.productname, o2.unitprice, o2.quantity
+	from orders o
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid = {pi_orderid};' 
+	resultado = plpy.execute(query)
+	cadena = "["
+	for r in resultado:
+	cadena += '\n{' + '"id": ' + str(r["productid"])
+	cadena += '"nombre": ' + str(r["productname"])
+	cadena += '"precio": ' + str(r["unitprice"])
+	cadena += '"cant": ' + str(r["quantity"])
+	cadena += '},\n'
+	return cadena 
+	$$
+	language plpython3u;
+2023-10-19 23:45:08.610 UTC [72] ERROR:  could not compile PL/Python function "getjson"
+2023-10-19 23:45:08.610 UTC [72] DETAIL:  SyntaxError: unterminated string literal (detected at line 3) (<string>, line 3)
+2023-10-19 23:45:08.610 UTC [72] STATEMENT:  create or replace function getJSON(pi_orderid integer)
+	returns text as
+	$$
+	query = f'
+	select p.productid, p.productname, o2.unitprice, o2.quantity
+	from orders o
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid = '
+	query += str(pi_orderid)
+	resultado = plpy.execute(query)
+	cadena = "["
+	for r in resultado:
+	cadena += '\n{' + '"id": ' + str(r["productid"])
+	cadena += '"nombre": ' + str(r["productname"])
+	cadena += '"precio": ' + str(r["unitprice"])
+	cadena += '"cant": ' + str(r["quantity"])
+	cadena += '},\n'
+	return cadena 
+	$$
+	language plpython3u;
+2023-10-19 23:45:53.272 UTC [72] ERROR:  could not compile PL/Python function "getjson"
+2023-10-19 23:45:53.272 UTC [72] DETAIL:  SyntaxError: unterminated string literal (detected at line 3) (<string>, line 3)
+2023-10-19 23:45:53.272 UTC [72] STATEMENT:  create or replace function getJSON(pi_orderid integer)
+	returns text as
+	$$
+	query = f'
+	select p.productid, p.productname, o2.unitprice, o2.quantity
+	from orders o
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid = '
+	query += str(pi_orderid)
+	resultado = plpy.execute(query)
+	cadena = "["
+	for r in resultado:
+	cadena += '\n{' + '"id": ' + str(r["productid"])
+	cadena += '"nombre": ' + str(r["productname"])
+	cadena += '"precio": ' + str(r["unitprice"])
+	cadena += '"cant": ' + str(r["quantity"])cadena += '},\n'
+	return cadena 
+	$$
+	language plpython3u;
+2023-10-19 23:47:58.533 UTC [24] LOG:  checkpoint starting: time
+2023-10-19 23:47:59.037 UTC [24] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.427 s, sync=0.017 s, total=0.504 s; sync files=5, longest=0.007 s, average=0.004 s; distance=33 kB, estimate=61 kB; lsn=0/64887C8, redo lsn=0/6488790
+2023-10-19 23:50:53.161 UTC [72] ERROR:  spiexceptions.SyntaxError: syntax error at end of input at character 206
+2023-10-19 23:50:53.161 UTC [72] QUERY:  
+		select p.productid, p.productname, o2.unitprice, o2.quantity
+		from orders o
+		inner join orderdetails o2
+		on o.orderid = o2.orderid
+		inner join products p
+		on p.productid = o2.productid
+		where o.orderid =
+2023-10-19 23:50:53.161 UTC [72] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "getjson", line 10, in <module>
+	    resultado = plpy.execute(query)
+	PL/Python function "getjson"
+2023-10-19 23:50:53.161 UTC [72] STATEMENT:  select getJSON(11077);
+2023-10-19 23:51:35.754 UTC [72] ERROR:  could not compile PL/Python function "getjson"
+2023-10-19 23:51:35.754 UTC [72] DETAIL:  SyntaxError: invalid syntax (<string>, line 10)
+2023-10-19 23:51:35.754 UTC [72] STATEMENT:  create or replace function getJSON(pi_orderid integer)
+	returns text as
+	$$
+	query = """
+	select p.productid, p.productname, o2.unitprice, o2.quantity
+	from orders o
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid =""" query += str(pi_orderid) 
+	resultado = plpy.execute(query)
+	cadena = "["
+	for r in resultado:
+	 cadena += '\n{' + '"id": ' + str(r["productid"])
+	 cadena += '"nombre": ' + str(r["productname"])
+	 cadena += '"precio": ' + str(r["unitprice"])
+	 cadena += '"cant": ' + str(r["quantity"])
+	 cadena += '},\n'
+	return cadena 
+	$$
+	language plpython3u;
+2023-10-19 23:52:58.135 UTC [24] LOG:  checkpoint starting: time
+2023-10-19 23:52:58.648 UTC [24] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.431 s, sync=0.016 s, total=0.513 s; sync files=5, longest=0.007 s, average=0.004 s; distance=31 kB, estimate=58 kB; lsn=0/64905E0, redo lsn=0/64905A8
+2023-10-19 23:53:48.231 UTC [72] ERROR:  could not compile PL/Python function "getjson"
+2023-10-19 23:53:48.231 UTC [72] DETAIL:  SyntaxError: invalid syntax (<string>, line 10)
+2023-10-19 23:53:48.231 UTC [72] STATEMENT:  create or replace function getJSON(pi_orderid integer)
+	returns text as
+	$$
+	query = """
+	select p.productid, p.productname, o2.unitprice, o2.quantity
+	from orders o
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid =""" query += str(pi_orderid) 
+	resultado = plpy.execute(query)
+	cadena = "["
+	for r in resultado:
+	 cadena += '\n{' + '"id": ' + str(r["productid"])
+	 cadena += '"nombre": ' + r["productname"]
+	 cadena += '"precio": ' + str(r["unitprice"])
+	 cadena += '"cant": ' + str(r["quantity"])
+	 cadena += '},\n'
+	return cadena 
+	$$
+	language plpython3u;
+2023-10-19 23:55:39.976 UTC [199] ERROR:  could not compile PL/Python function "getjson"
+2023-10-19 23:55:39.976 UTC [199] DETAIL:  SyntaxError: unterminated string literal (detected at line 3) (<string>, line 3)
+2023-10-19 23:55:39.976 UTC [199] STATEMENT:  create or replace function getJSON(pi_orderid integer)
+	returns text as
+	$$
+	query = f'
+	select p.productid, p.productname, o2.unitprice, o2.quantity
+	from orders o
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid = '
+	query += str(pi_orderid)
+	resultado = plpy.execute(query)
+	cadena = "["
+	for r in resultado:
+	cadena += '\n{' + '"id": ' + str(r["productid"])
+	cadena += ',"nombre": ' + str(r["productname"])
+	cadena += ',"precio": ' + str(r["unitprice"])
+	cadena += ',"cant": ' + str(r["quantity"])
+	cadena += '},\n'
+	cadena += '\n]'
+	return cadena 
+	$$
+	language plpython3u;
+2023-10-19 23:56:21.446 UTC [199] ERROR:  could not compile PL/Python function "getjson"
+2023-10-19 23:56:21.446 UTC [199] DETAIL:  IndentationError: expected an indented block after 'for' statement on line 14 (<string>, line 15)
+2023-10-19 23:56:21.446 UTC [199] STATEMENT:  create or replace function getJSON(pi_orderid integer)
+	returns text as
+	$$
+	query = """
+	select p.productid, p.productname, o2.unitprice, o2.quantity
+	from orders o
+	inner join orderdetails o2
+	on o.orderid = o2.orderid
+	inner join products p
+	on p.productid = o2.productid
+	where o.orderid = """
+	query += str(pi_orderid)
+	resultado = plpy.execute(query)
+	cadena = "["
+	for r in resultado:
+	cadena += '\n{' + '"id": ' + str(r["productid"])
+	cadena += ',"nombre": ' + str(r["productname"])
+	cadena += ',"precio": ' + str(r["unitprice"])
+	cadena += ',"cant": ' + str(r["quantity"])
+	cadena += '},\n'
+	cadena += '\n]'
+	return cadena 
+	$$
+	language plpython3u;
+2023-10-19 23:57:58.706 UTC [24] LOG:  checkpoint starting: time
+2023-10-19 23:57:59.238 UTC [24] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.439 s, sync=0.015 s, total=0.533 s; sync files=5, longest=0.007 s, average=0.003 s; distance=34 kB, estimate=55 kB; lsn=0/6498F90, redo lsn=0/6498F58
+2023-10-19 23:58:24.997 UTC [199] ERROR:  KeyError: 'productname'
+2023-10-19 23:58:24.997 UTC [199] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "getjson", line 15, in <module>
+	    cadena += ',"nombre": ' + str(r["productname"])
+	PL/Python function "getjson"
+2023-10-19 23:58:24.997 UTC [199] STATEMENT:  select getJSON(11077);

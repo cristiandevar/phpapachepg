@@ -1,0 +1,25 @@
+2023-10-26 12:14:35.445 UTC [1] LOG:  starting PostgreSQL 16.0 on x86_64-pc-linux-musl, compiled by gcc (Alpine 12.2.1_git20220924-r10) 12.2.1 20220924, 64-bit
+2023-10-26 12:14:35.445 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2023-10-26 12:14:35.445 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2023-10-26 12:14:35.475 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2023-10-26 12:14:35.698 UTC [31] LOG:  database system was interrupted; last known up at 2023-10-26 04:50:07 UTC
+2023-10-26 12:14:40.937 UTC [34] FATAL:  the database system is starting up
+2023-10-26 12:14:45.729 UTC [31] LOG:  syncing data directory (pre-fsync), elapsed time: 10.00 s, current path: ./base/16385/1255
+2023-10-26 12:14:55.742 UTC [31] LOG:  syncing data directory (pre-fsync), elapsed time: 20.01 s, current path: ./base/4/112
+2023-10-26 12:15:05.729 UTC [31] LOG:  syncing data directory (pre-fsync), elapsed time: 30.00 s, current path: ./base/5/2602
+2023-10-26 12:15:09.486 UTC [37] FATAL:  the database system is starting up
+2023-10-26 12:15:21.087 UTC [31] LOG:  syncing data directory (fsync), elapsed time: 10.00 s, current path: ./base/4/3439
+2023-10-26 12:15:28.924 UTC [31] LOG:  database system was not properly shut down; automatic recovery in progress
+2023-10-26 12:15:29.186 UTC [31] LOG:  redo starts at 0/72E13F0
+2023-10-26 12:15:29.297 UTC [31] LOG:  invalid record length at 0/72F2108: expected at least 24, got 0
+2023-10-26 12:15:29.297 UTC [31] LOG:  redo done at 0/72F20D0 system usage: CPU: user: 0.00 s, system: 0.01 s, elapsed: 0.11 s
+2023-10-26 12:15:29.577 UTC [29] LOG:  checkpoint starting: end-of-recovery immediate wait
+2023-10-26 12:15:29.881 UTC [29] LOG:  checkpoint complete: wrote 15 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.107 s, sync=0.052 s, total=0.317 s; sync files=12, longest=0.014 s, average=0.005 s; distance=67 kB, estimate=67 kB; lsn=0/72F2108, redo lsn=0/72F2108
+2023-10-26 12:15:30.012 UTC [1] LOG:  database system is ready to accept connections
+2023-10-26 12:17:05.432 UTC [41] FATAL:  password authentication failed for user "postgres"
+2023-10-26 12:17:05.432 UTC [41] DETAIL:  Connection matched file "/var/lib/postgresql/data/pg_hba.conf" line 129: "host all all all scram-sha-256"
+2023-10-26 12:26:32.367 UTC [45] ERROR:  function f_impide_orden_china() does not exist
+2023-10-26 12:26:32.367 UTC [45] STATEMENT:  create or replace trigger t_impide_orden_china before insert or update on orders
+	for each row execute procedure f_impide_orden_china()
+2023-10-26 12:30:30.196 UTC [29] LOG:  checkpoint starting: time
+2023-10-26 12:30:32.116 UTC [29] LOG:  checkpoint complete: wrote 17 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.706 s, sync=0.039 s, total=1.920 s; sync files=13, longest=0.010 s, average=0.003 s; distance=59 kB, estimate=66 kB; lsn=0/7301060, redo lsn=0/7301028

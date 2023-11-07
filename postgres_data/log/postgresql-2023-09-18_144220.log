@@ -1,0 +1,37 @@
+2023-09-18 14:42:20.020 UTC [1] LOG:  starting PostgreSQL 16.0 on x86_64-pc-linux-musl, compiled by gcc (Alpine 12.2.1_git20220924-r10) 12.2.1 20220924, 64-bit
+2023-09-18 14:42:20.020 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2023-09-18 14:42:20.020 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2023-09-18 14:42:20.025 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2023-09-18 14:42:20.054 UTC [24] LOG:  database system was shut down at 2023-09-18 14:42:14 UTC
+2023-09-18 14:42:20.121 UTC [1] LOG:  database system is ready to accept connections
+2023-09-18 14:47:20.153 UTC [22] LOG:  checkpoint starting: time
+2023-09-18 14:47:20.580 UTC [22] LOG:  checkpoint complete: wrote 6 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.322 s, sync=0.024 s, total=0.428 s; sync files=4, longest=0.013 s, average=0.006 s; distance=0 kB, estimate=0 kB; lsn=0/28D2BA0, redo lsn=0/28D2B68
+2023-09-18 15:22:21.199 UTC [22] LOG:  checkpoint starting: time
+2023-09-18 15:22:22.285 UTC [22] LOG:  checkpoint complete: wrote 11 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.031 s, sync=0.015 s, total=1.086 s; sync files=10, longest=0.004 s, average=0.002 s; distance=37 kB, estimate=37 kB; lsn=0/28DC390, redo lsn=0/28DC358
+2023-09-18 15:22:25.184 UTC [190] ERROR:  spiexceptions.UndefinedTable: relation "employees" does not exist at character 46
+2023-09-18 15:22:25.184 UTC [190] QUERY:  select employeeid, lastname,  firstname from employees
+2023-09-18 15:22:25.184 UTC [190] CONTEXT:  Traceback (most recent call last):
+	  PL/Python function "fnp_ej05_tabla_empleados", line 3, in <module>
+	    result = plpy.execute(query);
+	PL/Python function "fnp_ej05_tabla_empleados"
+2023-09-18 15:22:25.184 UTC [190] STATEMENT:  select * from fnp_ej05_tabla_empleados()
+2023-09-18 15:23:14.305 UTC [190] ERROR:  key "employeeid" not found in mapping
+2023-09-18 15:23:14.305 UTC [190] HINT:  To return null in a column, add the value None to the mapping with the key named after the column.
+2023-09-18 15:23:14.305 UTC [190] CONTEXT:  while creating return value
+	PL/Python function "fnp_ej05_tabla_empleados"
+2023-09-18 15:23:14.305 UTC [190] STATEMENT:  select * from fnp_ej05_tabla_empleados()
+2023-09-18 15:23:30.904 UTC [190] ERROR:  cannot change return type of existing function
+2023-09-18 15:23:30.904 UTC [190] DETAIL:  Row type defined by OUT parameters is different.
+2023-09-18 15:23:30.904 UTC [190] HINT:  Use DROP FUNCTION fnp_ej05_tabla_empleados() first.
+2023-09-18 15:23:30.904 UTC [190] STATEMENT:  create or replace function fnp_ej05_tabla_empleados() 
+	returns table(
+		customerid integer,
+		lastname varchar,
+		firstname varchar) as 
+	$$ 
+		query = """select customerid, lastname,  firstname from customers""" 
+		result = plpy.execute(query);
+		return result 
+	$$ language PLPYTHON3U
+2023-09-18 15:27:21.388 UTC [22] LOG:  checkpoint starting: time
+2023-09-18 15:27:22.395 UTC [22] LOG:  checkpoint complete: wrote 10 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.945 s, sync=0.019 s, total=1.008 s; sync files=8, longest=0.005 s, average=0.003 s; distance=40 kB, estimate=40 kB; lsn=0/28E6420, redo lsn=0/28E63E8

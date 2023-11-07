@@ -1,0 +1,2 @@
+2023-09-24 20:24:09.690 UTC [1400] LOG:  terminating walsender process due to replication timeout
+2023-09-24 20:24:09.690 UTC [1400] STATEMENT:  START_REPLICATION 0/6000000 TIMELINE 1

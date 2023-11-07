@@ -1,0 +1,8 @@
+# Utiliza la imagen base de PostgreSQL con Alpine
+FROM postgres:alpine
+
+# Instala Python 3
+RUN apk update && \
+    apk add --no-cache python3
+
+
