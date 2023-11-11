@@ -18,22 +18,24 @@
                     <select class="form-select" aria-label="Default select example">
                         <option selected>Base de Datos...</option>
                         <?php
-                            $conn_string = "host=postgres port=5432 user=postgres password=postgres";
-                            $conn = pg_connect($conn_string);
-                            if(!$conn) {
-                                echo '<div class="alert alert-danger"><p>No se pudo conectar a la BD Postgres</p></div>';
-                                exit;
-                            }
+                            // $conn_string = "host=postgres port=5432 user=postgres password=postgres";
+                            // $conn = pg_connect($conn_string);
+                            // if(!$conn) {
+                            //     echo '<div class="alert alert-danger"><p>No se pudo conectar a la BD Postgres</p></div>';
+                            //     exit;
+                            // }
+                            require_once __DIR__."/Model/DataBase.php";
+                            $db = new DataBase();
                             $query = 'select datname from pg_database';
-                            $result = pg_query($conn, $query);
-                            if ( !$result ) {
-                                echo '<div class="alert alert-danger"><p>No se pudo consultar las BDs</p></div>';
-                                exit;
-                            }
+                            $result = $db->ejecutar_consulta_db($query, 'postgres');
+                            // $result = pg_query($conn, $query);
+                            // if ( !$result ) {
+                            //     echo '<div class="alert alert-danger"><p>No se pudo consultar las BDs</p></div>';
+                            //     exit;
+                            // }
                             while ($row = pg_fetch_row($result)) {
                                 echo "<option value='$row[0]'>$row[0]</option>";
                             }
-                            pg_close($conn);
                         ?>
                     </select>
                     <hr>
