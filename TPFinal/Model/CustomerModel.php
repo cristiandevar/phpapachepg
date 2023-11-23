@@ -1,5 +1,4 @@
 <?php
-// require_once PROJECT_ROOT_PATH . "/Model/Database.php";
 class CustomerModel extends Database{
     // Metodos utilizado para consultar a la BD Northwind
     // Ambos metodos utilizan exec_query_db, el cual 
@@ -27,13 +26,11 @@ class CustomerModel extends Database{
         $db = 'northwind';
         $result = $this->exec_query_db($query, $db);
         if($result){
-            // $customer = [];
             $customer = pg_fetch_assoc($result);
         }
         else {
             $customer = null;
         }
-        // die($customer);
         return $customer;
     }
 
