@@ -1,8 +1,9 @@
 <?php
 
-define("PROJECT_ROOT_PATH", __DIR__ . "/../");
+// define("PROJECT_ROOT_PATH", __DIR__ . "/../");
 // incluimos el archivo principal
-require_once PROJECT_ROOT_PATH . "/inc/config.php";
+// require  __DIR__ . "/../inc/bootstrap.php";
+// require_once PROJECT_ROOT_PATH . "/inc/config.php";
 class Database
 {
     protected $host = null;
@@ -19,7 +20,7 @@ class Database
         $this->password = DB_PASSWORD;
     }
 
-    function ejecutar_consulta_db($sql, $db) {
+    function exec_query_db($sql, $db) {
         $conn_string = "host={$this->host} port={$this->port} dbname={$db} user={$this->user} password={$this->password}";
         $this->query = $conn_string;
         $conn = pg_connect($conn_string);

@@ -1,3 +1,5 @@
+// Cada vez que se cargue el DOM de la pagina se asigna un oyente al enlace para volver
+// a la pagina que muestra las tablas, por eso se obtiene el nombre de la BD desde el id del link
 document.addEventListener('DOMContentLoaded',
     function () {
         $('a').first().on('click',
@@ -6,8 +8,5 @@ document.addEventListener('DOMContentLoaded',
                 $(this).attr('href','show_tables.php?db=' + db);
             }
         );
-
-        // $('#tbody-rows').css('height','20em');
-        // $('#tbody-rows').css('overflow-y','scroll');
     }
 );
